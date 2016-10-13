@@ -7,6 +7,7 @@
 //
 //===----------------------------------------------------------------------===//
 
+#include "MCTargetDesc/RISCVFixupKinds.h"
 #include "MCTargetDesc/RISCVMCTargetDesc.h"
 #include "llvm/MC/MCELFObjectWriter.h"
 #include "llvm/MC/MCFixup.h"
@@ -41,6 +42,18 @@ unsigned RISCVELFObjectWriter::getRelocType(MCContext &Ctx,
   switch ((unsigned)Fixup.getKind()) {
   default:
     llvm_unreachable("invalid fixup kind!");
+  case FK_Data_4:
+    return ELF::R_RISCV_32;
+  case FK_Data_8:
+    return ELF::R_RISCV_64;
+  case RISCV::fixup_riscv_hi20:
+    return ELF::R_RISCV_HI20;
+  case RISCV::fixup_riscv_lo12_i:
+    return ELF::R_RISCV_LO12_I;
+  case RISCV::fixup_riscv_lo12_s:
+    return ELF::R_RISCV_LO12_S;
+  case RISCV::fixup_riscv_pcrel_hi20:
+    return ELF::R_RISCV_PCREL_HI20;
   }
 }
 

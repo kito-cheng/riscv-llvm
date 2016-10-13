@@ -39,6 +39,7 @@ def uimm5 : Operand<i32> {
 
 def simm12 : Operand<i32> {
   let ParserMatchClass = SImmAsmOperand<12>;
+  let EncoderMethod = "getImmOpValue";
   let DecoderMethod = "decodeSImmOperand<12>";
 }
 
@@ -161,7 +162,7 @@ def SRA  : ALU_rr<0b0100000, 0b101, "sra">;
 def OR   : ALU_rr<0b0000000, 0b110, "or">;
 def AND  : ALU_rr<0b0000000, 0b111, "and">;
 
-def FENCE : RISCVInst<(outs), (ins uimm4:$pred, uimm4:$succ), "fence\t$pred, $succ", []>
+def FENCE : RISCVInst<(outs), (ins uimm4:$pred, uimm4:$succ), "fence\t$pred, $succ", [], FrmOther>
 {
   bits<4> pred;
   bits<4> succ;
@@ -173,7 +174,7 @@ def FENCE : RISCVInst<(outs), (ins uimm4:$pred, uimm4:$succ), "fence\t$pred, $su
   let Inst{31-28} = 0;
 }
 
-def FENCEI : RISCVInst<(outs), (ins), "fence.i", []> {
+def FENCEI : RISCVInst<(outs), (ins), "fence.i", [], FrmOther> {
   let Opcode = 0b0001111;
   let Inst{11-7} = 0;
   let Inst{14-12} = 0b001;
