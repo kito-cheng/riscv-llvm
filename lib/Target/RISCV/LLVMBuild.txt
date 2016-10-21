@@ -16,7 +16,7 @@
 ;===------------------------------------------------------------------------===;
 
 [common]
-subdirectories = AsmParser Disassembler InstPrinter TargetInfo MCTargetDesc
+subdirectories = InstPrinter TargetInfo MCTargetDesc
 
 [component_0]
 type = TargetGroup
