@@ -51,7 +51,9 @@ RISCVTargetMachine::RISCVTargetMachine(const Target &T, const Triple &TT,
                                        CodeGenOpt::Level OL)
     : LLVMTargetMachine(T, computeDataLayout(TT), TT, CPU, FS, Options,
                         getEffectiveRelocModel(TT, RM), CM, OL),
-      TLOF(make_unique<TargetLoweringObjectFileELF>()) {}
+      TLOF(make_unique<TargetLoweringObjectFileELF>()) {
+  initAsmInfo();
+}
 
 TargetPassConfig *RISCVTargetMachine::createPassConfig(PassManagerBase &PM) {
   return new TargetPassConfig(this, PM);
